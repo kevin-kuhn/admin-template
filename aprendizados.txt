@@ -1,0 +1,6 @@
+PURGE - TAILWIND 
+	Serve para o tailwind saber onde que ele vai ser usado e "jogar fora todo o css que ele tem mas n é utilizado"
+
+DARKMODE - 'media' ou 'class'
+	class -> quando o pai tiver a classe "dark", todos os filhos que tiverem o 'dark:' começam a usar o padrão dark
+	media -> depende do que tiver no browser do cliente
