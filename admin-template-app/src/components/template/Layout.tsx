@@ -10,9 +10,9 @@ interface Props {
 
 const Layout: React.FC<Props> = props => {
 	return (
-		<div className='font-poppins flex h-screen w-screen'>
+		<div className={`dark font-poppins flex h-screen w-screen`}>
 			<SideMenu />
-			<div className='flex flex-col w-full p-7 bg-gray-300'>
+			<div className='flex flex-col w-full p-7 bg-gray-300 dark:bg-gray-800'>
 				<Header title={props.title} subtitle={props.subtitle} />
 				<Content>{props.children}</Content>
 			</div>
