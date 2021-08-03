@@ -4,3 +4,5 @@ PURGE - TAILWIND
 DARKMODE - 'media' ou 'class'
 	class -> quando o pai tiver a classe "dark", todos os filhos que tiverem o 'dark:' começam a usar o padrão dark
 	media -> depende do que tiver no browser do cliente
+
+ICONS -> https://heroicons.com/
