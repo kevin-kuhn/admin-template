@@ -58,7 +58,7 @@ const Auth: React.FC = () => {
 					onClick={submit}
 					className='w-full bg-red-500 hover:bg-red-400 text-white rounded-lg px-4 py-3 transition delay-75'
 				>
-					Enrtar com Google
+					Entrar com Google
 				</button>
 
 				{mode === "login" ? (
