@@ -1,9 +1,12 @@
 import React from "react"
+import useAuth from "../../data/hook/useAuth"
 import { BellIcon, HomeIcon, LogoutIcon, SettingsIcon } from "../icons"
 import ItemMenu from "./ItemMenu"
 import Logo from "./Logo"
 
 const SideMenu: React.FC = props => {
+	const { logout } = useAuth()
+	
 	return (
 		<aside className='flex flex-col bg-gray-200 dark:bg-gray-900'>
 			<div className='flex flex-col items-center justify-center h-20 w-20 bg-gradient-to-r from-indigo-500 to-purple-800'>
@@ -18,9 +21,7 @@ const SideMenu: React.FC = props => {
 				<ItemMenu
 					text='Sair'
 					icon={LogoutIcon}
-					onClick={() => {
-						console.log("Logout")
-					}}
+					onClick={logout}
 					className='text-red-600 dark:text-red-400 hover:bg-red-400 hover:text-white dark:hover:text-white'
 				/>
 			</ul>

@@ -15,3 +15,9 @@ CONSUMER -> Context API
 
 ------------------------------
 ICONS -> https://heroicons.com/
+
+
+--------------------------------
+FIREBASE
+	firebase.auth().onIdTokenChanged(configureSession) -> importante para configurar a sessao novamente, quando eu dou um refresh na tela, 
+	o usuario troca o token, nesse caso, tenho o observer pra me retornar o usuario logado novamente
