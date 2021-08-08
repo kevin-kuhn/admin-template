@@ -1,19 +1,23 @@
-import { createContext, useState } from "react"
-
-type ThemeType = "dark" | ""
+import { createContext, useEffect, useState } from "react"
 
 interface Props {
-	theme: ThemeType
+	theme: string
 	toggleTheme: () => void
 }
 
 const AppContext = createContext<Props>({} as Props)
 
 export const AppProvider: React.FC = props => {
-	const [theme, setTheme] = useState<ThemeType>('')
+	const [theme, setTheme] = useState('dark')
+
+	useEffect(() => {
+		setTheme(localStorage.getItem('theme'))
+	}, [])
 
 	const toggleTheme = () => {
-		setTheme(theme => !theme ? 'dark' : '')
+		const newTheme = !theme ? 'dark' : ''
+		setTheme(newTheme)
+		localStorage.setItem('theme', newTheme)
 	}
 
 	return (

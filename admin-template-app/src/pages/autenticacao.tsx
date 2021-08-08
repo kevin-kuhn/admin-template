@@ -5,7 +5,11 @@ import { WarningIcon } from "../components/icons"
 import useAuth from "../data/hook/useAuth"
 
 const Auth: React.FC = () => {
-	const { user, googleLogin } = useAuth()
+	const {
+		loginWithEmailAndPassword,
+		registerWithEmailAndPassword,
+		googleLogin,
+	} = useAuth()
 
 	const [email, setEmail] = useState("")
 	const [password, setPasword] = useState("")
@@ -17,11 +21,15 @@ const Auth: React.FC = () => {
 		setTimeout(() => setError(""), showTime * 1000)
 	}
 
-	const submit = () => {
-		if (mode === "login") {
-			showError("erro login", 5)
-		} else {
-			showError("erro cadastro", 5)
+	const submit = async () => {
+		try {
+			if (mode === "login") {
+				await loginWithEmailAndPassword(email, password)
+			} else {
+				await registerWithEmailAndPassword(email, password)
+			}
+		} catch (err) {
+			showError(err?.message ?? "Ocorreu um erro inesperado")
 		}
 	}
 

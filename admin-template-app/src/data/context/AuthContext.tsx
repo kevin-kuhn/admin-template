@@ -6,8 +6,11 @@ import Cookies from "js-cookie"
 
 interface Props {
 	user: User
+	isLoading: boolean
 	googleLogin: () => Promise<void>
 	logout: () => Promise<void>
+	loginWithEmailAndPassword: (email: string, password: string) => Promise<void>
+	registerWithEmailAndPassword: (email: string, password: string) => Promise<void>
 }
 
 const AuthContext = createContext<Props>({} as Props)
@@ -46,6 +49,8 @@ export const AuthProvider: React.FC = props => {
 			const cleanUp = firebase.auth().onIdTokenChanged(configureSession)
 
 			return () => cleanUp()
+		} else {
+			setIsLoading(false)
 		}
 	}, [])
 
@@ -66,6 +71,34 @@ export const AuthProvider: React.FC = props => {
 		}
 	}
 
+	const loginWithEmailAndPassword = async (email: string, password: string) => {
+		try {
+			setIsLoading(true)
+			const response = await firebase
+				.auth()
+				.signInWithEmailAndPassword(email, password)
+
+			const resp = await configureSession(response.user)
+			resp && router.push("/")
+		} finally {
+			setIsLoading(false)
+		}
+	}
+
+	const registerWithEmailAndPassword = async (email: string, password: string) => {
+		try {
+			setIsLoading(true)
+			const response = await firebase
+				.auth()
+				.createUserWithEmailAndPassword(email, password)
+
+			const resp = await configureSession(response.user)
+			resp && router.push("/")
+		} finally {
+			setIsLoading(false)
+		}
+	}
+
 	const googleLogin = async () => {
 		try {
 			setIsLoading(true)
@@ -73,7 +106,7 @@ export const AuthProvider: React.FC = props => {
 				.auth()
 				.signInWithPopup(new firebase.auth.GoogleAuthProvider())
 
-			const resp = configureSession(response.user)
+			const resp = await configureSession(response.user)
 			resp && router.push("/")
 		} finally {
 			setIsLoading(false)
@@ -94,8 +127,11 @@ export const AuthProvider: React.FC = props => {
 		<AuthContext.Provider
 			value={{
 				user,
+				isLoading,
 				googleLogin,
 				logout,
+				loginWithEmailAndPassword,
+				registerWithEmailAndPassword
 			}}
 		>
 			{props.children}
